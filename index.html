@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Control Panel</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #2ecc71;
+      color: black;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #58d68d;
+      transform: translateY(-2px);
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(6px);
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>This is my first page.</p>
+  <div class="container">
+    <div class="card">
+      <h1>Minecraft Control Panel</h1>
+      <p>Choose an action below</p>
+
+      <div class="buttons">
+        <button>Pearl Pull</button>
+        <button>Open Door</button>
+        <button>Redstone 5</button>
+        <button>Redstone 15</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
