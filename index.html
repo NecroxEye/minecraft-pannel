@@ -32,20 +32,17 @@
       min-height:100%;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Inter", sans-serif;
-      color: var(--text);
+    body{
+      font-family:"Inter", sans-serif;
+      color:var(--text);
       background:
         linear-gradient(rgba(2,7,5,0.58), rgba(2,7,5,0.68)),
         url('./background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      overflow-x: hidden;
-    }
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      overflow-x:hidden;
     }
 
     body::before{
@@ -146,7 +143,7 @@
 
     .notice{
       margin-top:28px;
-      padding:18px 18px;
+      padding:18px;
       border-radius:18px;
       border:1px solid rgba(255,226,138,.2);
       background:rgba(255,226,138,.08);
@@ -435,125 +432,90 @@
         </p>
 
         <div class="notice">
-          <strong>Important:</strong> the Discord role restriction you asked for cannot be enforced by plain GitHub Pages HTML alone.
-          A static page can show buttons, but real checks like:
-          <strong>“user must be in this Discord server and have role ID 1553856941204181162”</strong>
-          require a <strong>backend</strong> with Discord OAuth2 and role verification.
+          <strong>Important:</strong> Discord role checks must be handled by your backend.
+          This page only sends the user to your local login route.
         </div>
 
         <div class="mock-flow">
           <div class="flow-box">
-            <strong>1. Login with Discord</strong>
-            <span>User signs in with Discord so your server can identify who clicked.</span>
+            <strong>1. Login</strong>
+            <span>User clicks the Discord button and goes to your Node.js server.</span>
           </div>
           <div class="flow-box">
-            <strong>2. Check guild + role</strong>
-            <span>Backend checks they are in your Discord and have the Pearl Pull Allow role.</span>
+            <strong>2. Verify</strong>
+            <span>Your backend checks the Discord account and role.</span>
           </div>
           <div class="flow-box">
-            <strong>3. Trigger exact player</strong>
-            <span>Backend sends the allowed action to your Minecraft webhook / CC system.</span>
+            <strong>3. Enable</strong>
+            <span>If allowed, your panel can unlock the action buttons.</span>
           </div>
         </div>
-      </div>
 
-      <div class="bottom-strip">
-        <div class="info-tile">
-          <small>Discord server</small>
-          <div>https://discord.gg/QQxpK62F4j</div>
-        </div>
-        <div class="info-tile">
-          <small>Required role ID</small>
-          <div>1553856941204181162 — Pearl Pull Allow</div>
+        <div class="bottom-strip">
+          <div class="info-tile">
+            <small>Backend URL</small>
+            <div>http://localhost:3000/auth/discord</div>
+          </div>
+          <div class="info-tile">
+            <small>Callback URL</small>
+            <div>http://localhost:3000/auth/discord/callback</div>
+          </div>
         </div>
       </div>
     </section>
 
     <aside class="side-panel">
       <div class="panel-head">
-        <div class="topline" style="margin-bottom:12px;">Right-side panel</div>
-        <h2 style="font-size:2rem;">Quick actions</h2>
-        <p>
-          These buttons are only the website UI right now.
-          Real protected pearl pulling comes in the next step with Discord login + backend verification.
-        </p>
+        <h2>Access</h2>
+        <p>Use Discord to authenticate before enabling any server actions.</p>
       </div>
 
       <div class="status">
         <span class="status-dot"></span>
-        <span id="statusText">Static page mode — UI only</span>
+        <span>Ready for Discord OAuth2 login</span>
       </div>
 
       <div class="button-stack">
-        <button class="main-btn" id="necroxBtn">Necrox Pearl</button>
-        <button class="ghost-btn" id="aliceBtn">Alice Pearl</button>
-        <button class="discord-btn" onclick="window.open('https://discord.gg/QQxpK62F4j','_blank')">Link Discord</button>
-        <button class="ghost-btn" id="selfBtn">Self Pull</button>
+        <a class="panel-link discord-btn" href="http://localhost:3000/auth/discord">
+          Login with Discord
+        </a>
+
+        <button class="ghost-btn" type="button" onclick="location.reload()">
+          Refresh Panel
+        </button>
       </div>
 
       <div class="auth-box">
-        <h3>How the permission part really works</h3>
+        <h3>What happens after login?</h3>
         <p>
-          To enforce your rule:
-          only users who are connected with Discord, are in your server, and have the specified role should be allowed to trigger a pearl pull.
+          Discord sends the user to your callback route. Your server then decides whether the account
+          is allowed based on server membership and role.
         </p>
-
         <div class="requirements">
           <div class="requirement">
-            <div class="tick"></div>
-            <div>User clicks <strong>Login with Discord</strong></div>
+            <span class="tick"></span>
+            <div>Discord OAuth2 login</div>
           </div>
           <div class="requirement">
-            <div class="tick"></div>
-            <div>Backend checks guild membership and role <strong>1553856941204181162</strong></div>
+            <span class="tick"></span>
+            <div>Server membership check</div>
           </div>
           <div class="requirement">
-            <div class="tick"></div>
-            <div>If allowed, backend sends target player action like <strong>pull_necrox</strong> or <strong>pull_alice</strong></div>
+            <span class="tick"></span>
+            <div>Role verification on backend</div>
           </div>
-        </div>
-
-        <div class="code">
-Frontend (GitHub Pages) → Backend with Discord OAuth → Role check → Minecraft webhook / CC:Tweaked queue
         </div>
       </div>
 
       <div class="log-box">
-        <h3>Panel log</h3>
-        <p>
-          This demo shows what the page can display now. The actual protected actions come after we build the backend.
-        </p>
-        <div id="log" aria-live="polite">
-          <div class="line dim">[system] UI loaded successfully</div>
-          <div class="line dim">[info] background image source: background.png</div>
-          <div class="line warn">[notice] Discord role validation is not possible on static HTML alone</div>
+        <h3>Status Log</h3>
+        <div id="log">
+          <div class="line ok">• Background loaded from ./background.png</div>
+          <div class="line ok">• Discord button linked to localhost backend</div>
+          <div class="line dim">• Waiting for user login...</div>
         </div>
       </div>
     </aside>
   </main>
-
-  <script>
-    const log = document.getElementById('log');
-    const statusText = document.getElementById('statusText');
-
-    function addLog(text, type = '') {
-      const line = document.createElement('div');
-      line.className = `line ${type}`.trim();
-      line.textContent = text;
-      log.appendChild(line);
-      log.scrollTop = log.scrollHeight;
-    }
-
-    function uiOnlyMessage(target) {
-      statusText.textContent = 'UI click captured';
-      addLog(`[click] ${target} button pressed`, 'ok');
-      addLog('[next step] connect this page to a backend that checks Discord login + role', 'warn');
-      addLog('[backend rule] must be in guild and have role 1553856941204181162', 'dim');
-    }
-
-    document.getElementById('necroxBtn').addEventListener('click', () => uiOnlyMessage('Necrox Pearl'));
-    document.getElementById('aliceBtn').addEventListener('click', () => uiOnlyMessage('Alice Pearl'));
-    document.getElementById('selfBtn').addEventListener('click', () => uiOnlyMessage('Self Pull'));
-  </script>
 </body>
 </html>
