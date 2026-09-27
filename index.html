@@ -398,6 +398,10 @@
     .line.err{color:var(--danger)}
     .line.ok{color:var(--green)}
 
+    .hidden{
+      display:none !important;
+    }
+
     @media (max-width: 1080px){
       .page{
         grid-template-columns:1fr;
@@ -470,13 +474,13 @@
         <p>Use Discord to authenticate before enabling any server actions.</p>
       </div>
 
-      <div class="status">
+      <div id="loginStatus" class="status">
         <span class="status-dot"></span>
-        <span>Ready for Discord OAuth2 login</span>
+        <span>Checking login...</span>
       </div>
 
       <div class="button-stack">
-        <a class="panel-link discord-btn" href="http://localhost:3000/auth/discord">
+        <a id="discordLoginBtn" class="panel-link discord-btn" href="http://localhost:3000/auth/discord">
           Login with Discord
         </a>
 
@@ -507,6 +511,15 @@
         </div>
       </div>
 
+      <div id="lockedActions" class="log-box hidden">
+        <h3>Unlocked Actions</h3>
+        <div class="button-stack">
+          <button class="main-btn" type="button">Necrox Pearl</button>
+          <button class="main-btn" type="button">Alice Pearl</button>
+          <button class="ghost-btn" type="button">Self Pull</button>
+        </div>
+      </div>
+
       <div class="log-box">
         <h3>Status Log</h3>
         <div id="log">
@@ -517,5 +530,49 @@
       </div>
     </aside>
   </main>
+
+  <script>
+    async function checkLogin() {
+      try {
+        const res = await fetch('http://localhost:3000/api/me', {
+          credentials: 'include'
+        });
+
+        const data = await res.json();
+        const statusEl = document.getElementById('loginStatus');
+        const loginBtn = document.getElementById('discordLoginBtn');
+        const lockedArea = document.getElementById('lockedActions');
+        const log = document.getElementById('log');
+
+        if (data.loggedIn) {
+          statusEl.innerHTML = '<span class="status-dot"></span><span>Logged in as ' + (data.user.global_name || data.user.username) + '</span>';
+          loginBtn.textContent = 'Logged In';
+          loginBtn.style.pointerEvents = 'none';
+          loginBtn.style.opacity = '0.75';
+          lockedArea.classList.remove('hidden');
+          log.innerHTML = `
+            <div class="line ok">• Background loaded from ./background.png</div>
+            <div class="line ok">• Discord button linked to localhost backend</div>
+            <div class="line ok">• Logged in as ${data.user.username}</div>
+            <div class="line ok">• Verified and unlocked</div>
+          `;
+        } else {
+          statusEl.innerHTML = '<span class="status-dot"></span><span>Not logged in</span>';
+          lockedArea.classList.add('hidden');
+          log.innerHTML = `
+            <div class="line ok">• Background loaded from ./background.png</div>
+            <div class="line ok">• Discord button linked to localhost backend</div>
+            <div class="line warn">• Not logged in yet</div>
+          `;
+        }
+      } catch (err) {
+        console.error('Login check failed:', err);
+        const statusEl = document.getElementById('loginStatus');
+        statusEl.innerHTML = '<span class="status-dot"></span><span>Backend unavailable</span>';
+      }
+    }
+
+    window.addEventListener('load', checkLogin);
+  </script>
 </body>
 </html>
