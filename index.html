@@ -10,14 +10,12 @@
 
   <style>
     :root{
-      --bg:#07110d;
       --panel:rgba(10,18,14,0.72);
       --panel-2:rgba(15,27,21,0.82);
       --line:rgba(140,255,188,0.18);
       --text:#f3fff7;
       --muted:#c4d8cc;
       --green:#66f2a3;
-      --green-2:#2ed47a;
       --cyan:#8ce9ff;
       --gold:#ffe28a;
       --danger:#ff7b7b;
@@ -32,8 +30,8 @@
       font-family:"Inter", sans-serif;
       color:var(--text);
       background:
-        linear-gradient(rgba(2,7,5,0.58), rgba(2,7,5,0.68)),
-        url('./background.png');
+        linear-gradient(rgba(2,7,5,0.44), rgba(2,7,5,0.62)),
+        url("background.png");
       background-size:cover;
       background-position:center;
       background-repeat:no-repeat;
@@ -57,7 +55,7 @@
     .page{
       min-height:100vh;
       display:grid;
-      grid-template-columns:minmax(0, 1.25fr) 380px;
+      grid-template-columns:minmax(0, 1.2fr) 390px;
       gap:22px;
       padding:24px;
     }
@@ -124,7 +122,7 @@
     }
 
     h1{
-      font-size:clamp(2.6rem, 5vw, 5.8rem);
+      font-size:clamp(2.8rem, 5vw, 5.8rem);
       max-width:9ch;
       text-shadow:0 8px 30px rgba(0,0,0,.35);
     }
@@ -174,35 +172,6 @@
       color:var(--muted);
       font-size:.92rem;
       line-height:1.6;
-    }
-
-    .bottom-strip{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-top:26px;
-    }
-
-    .info-tile{
-      padding:16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.06);
-    }
-
-    .info-tile small{
-      display:block;
-      color:var(--green);
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      font-weight:700;
-      margin-bottom:6px;
-    }
-
-    .info-tile div{
-      color:var(--muted);
-      line-height:1.65;
-      word-break:break-word;
     }
 
     .side-panel{
@@ -259,7 +228,7 @@
       font-weight:800;
       font-size:1rem;
       cursor:pointer;
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease, opacity .18s ease;
       text-decoration:none;
       display:flex;
       align-items:center;
@@ -306,7 +275,7 @@
       box-shadow:0 20px 42px rgba(88,101,242,.34);
     }
 
-    .auth-box,
+    .info-box,
     .log-box{
       margin-top:18px;
       padding:16px;
@@ -315,40 +284,17 @@
       border:1px solid rgba(255,255,255,.07);
     }
 
-    .auth-box h3,
+    .info-box h3,
     .log-box h3{
       font-size:1.1rem;
       margin-bottom:10px;
     }
 
-    .auth-box p,
-    .log-box p{
+    .info-box p{
       margin:0;
       color:var(--muted);
       line-height:1.7;
       font-size:.94rem;
-    }
-
-    .requirements{
-      display:grid;
-      gap:10px;
-      margin-top:14px;
-    }
-
-    .requirement{
-      display:grid;
-      grid-template-columns:auto 1fr;
-      gap:12px;
-      align-items:start;
-    }
-
-    .tick{
-      width:12px;
-      height:12px;
-      border-radius:4px;
-      margin-top:7px;
-      background:linear-gradient(135deg, var(--cyan), var(--green));
-      box-shadow:0 0 16px rgba(102,242,163,.28);
     }
 
     .log-box{
@@ -360,7 +306,7 @@
     #log{
       margin-top:12px;
       flex:1;
-      min-height:170px;
+      min-height:190px;
       border-radius:14px;
       background:#08100d;
       border:1px solid rgba(140,255,188,.1);
@@ -378,7 +324,7 @@
     .line.err{color:var(--danger)}
     .line.ok{color:var(--green)}
 
-    .hidden{display:none !important}
+    .hidden{display:none!important}
 
     @media (max-width:1080px){
       .page{grid-template-columns:1fr}
@@ -388,8 +334,7 @@
     @media (max-width:700px){
       .page{padding:14px}
       .hero,.side-panel{padding:18px}
-      .mock-flow,
-      .bottom-strip{grid-template-columns:1fr}
+      .mock-flow{grid-template-columns:1fr}
       h1{max-width:11ch}
     }
   </style>
@@ -401,38 +346,27 @@
         <div class="topline">Minecraft server control</div>
         <h1>Pearl pull access panel</h1>
         <p class="lead">
-          This page uses your uploaded <strong>background.png</strong> as the full-screen background.
-          The panel on the right is ready for your player buttons and Discord link.
+          Authenticate with Discord, verify access, and unlock the in-game pearl controls for your panel.
+          This interface is built to stay simple on the outside while your backend handles the secure checks.
         </p>
 
         <div class="notice">
-          <strong>Important:</strong> Discord role checks must be handled by your backend.
-          This page only sends the user to your local login route.
+          <strong>Important:</strong> this page is only the control interface.
+          Discord membership and role validation happen on your backend before actions are unlocked.
         </div>
 
         <div class="mock-flow">
           <div class="flow-box">
             <strong>1. Login</strong>
-            <span>User clicks the Discord button and goes to your Node.js server.</span>
+            <span>Click the Discord button to start secure authentication.</span>
           </div>
           <div class="flow-box">
             <strong>2. Verify</strong>
-            <span>Your backend checks the Discord account and role.</span>
+            <span>Your backend confirms the user is in the right server and role.</span>
           </div>
           <div class="flow-box">
-            <strong>3. Enable</strong>
-            <span>If allowed, your panel can unlock the action buttons.</span>
-          </div>
-        </div>
-
-        <div class="bottom-strip">
-          <div class="info-tile">
-            <small>Backend URL</small>
-            <div>http://localhost:3000/auth/discord</div>
-          </div>
-          <div class="info-tile">
-            <small>Callback URL</small>
-            <div>http://localhost:3000/auth/discord/callback</div>
+            <strong>3. Control</strong>
+            <span>Once verified, the pearl action buttons become available.</span>
           </div>
         </div>
       </div>
@@ -441,7 +375,7 @@
     <aside class="side-panel">
       <div class="panel-head">
         <h2>Access</h2>
-        <p>Use Discord to authenticate before enabling any server actions.</p>
+        <p>Authenticate before using the player control buttons.</p>
       </div>
 
       <div id="loginStatus" class="status">
@@ -450,7 +384,7 @@
       </div>
 
       <div class="button-stack">
-        <a id="discordLoginBtn" class="panel-link discord-btn" href="http://localhost:3000/auth/discord">
+        <a id="discordLoginBtn" class="panel-link discord-btn" href="/auth/discord">
           Login with Discord
         </a>
 
@@ -459,49 +393,49 @@
         </button>
       </div>
 
-      <div class="auth-box">
-        <h3>What happens after login?</h3>
+      <div class="info-box">
+        <h3>Control Buttons</h3>
         <p>
-          Discord sends the user to your callback route. Your server then decides whether the account
-          is allowed based on server membership and role.
+          These actions stay hidden until the user is verified.
+          After login, the buttons below can be wired to your backend or ComputerCraft handler.
         </p>
-        <div class="requirements">
-          <div class="requirement">
-            <span class="tick"></span>
-            <div>Discord OAuth2 login</div>
-          </div>
-          <div class="requirement">
-            <span class="tick"></span>
-            <div>Server membership check</div>
-          </div>
-          <div class="requirement">
-            <span class="tick"></span>
-            <div>Role verification on backend</div>
-          </div>
-        </div>
       </div>
 
-      <div id="lockedActions" class="log-box hidden">
-        <h3>Unlocked Actions</h3>
+      <div id="lockedActions" class="info-box hidden">
+        <h3>Pearl Controls</h3>
         <div class="button-stack">
-          <button class="main-btn" type="button">Necrox Pearl</button>
-          <button class="main-btn" type="button">Alice Pearl</button>
-          <button class="ghost-btn" type="button">Self Pull</button>
+          <button class="main-btn pearl-btn" type="button" data-player="Necrox">
+            Necrox Pearl
+          </button>
+          <button class="main-btn pearl-btn" type="button" data-player="Alice">
+            Alice Pearl
+          </button>
+          <button class="ghost-btn pearl-btn" type="button" data-player="Self">
+            Self Pull
+          </button>
         </div>
       </div>
 
       <div class="log-box">
         <h3>Status Log</h3>
         <div id="log">
-          <div class="line ok">• Background loaded from ./background.png</div>
-          <div class="line ok">• Discord button linked to localhost backend</div>
-          <div class="line dim">• Waiting for user login...</div>
+          <div class="line ok">• Panel loaded</div>
+          <div class="line dim">• Waiting for backend session check...</div>
         </div>
       </div>
     </aside>
   </main>
 
   <script>
+    const log = document.getElementById('log');
+    const statusEl = document.getElementById('loginStatus');
+    const loginBtn = document.getElementById('discordLoginBtn');
+    const lockedArea = document.getElementById('lockedActions');
+
+    function setLog(lines) {
+      log.innerHTML = lines.join('');
+    }
+
     async function checkLogin() {
       try {
         const res = await fetch('/api/me', {
@@ -509,39 +443,50 @@
         });
 
         const data = await res.json();
-        const statusEl = document.getElementById('loginStatus');
-        const loginBtn = document.getElementById('discordLoginBtn');
-        const lockedArea = document.getElementById('lockedActions');
-        const log = document.getElementById('log');
 
         if (data.loggedIn) {
           const name = data.user.global_name || data.user.username;
           statusEl.innerHTML = '<span class="status-dot"></span><span>Logged in as ' + name + '</span>';
-          loginBtn.textContent = 'Logged In';
+          loginBtn.textContent = 'Verified';
           loginBtn.style.pointerEvents = 'none';
-          loginBtn.style.opacity = '0.75';
+          loginBtn.style.opacity = '0.7';
           lockedArea.classList.remove('hidden');
-          log.innerHTML = `
-            <div class="line ok">• Background loaded from ./background.png</div>
-            <div class="line ok">• Discord button linked to localhost backend</div>
-            <div class="line ok">• Logged in as ${name}</div>
-            <div class="line ok">• Verified and unlocked</div>
-          `;
+
+          setLog([
+            '<div class="line ok">• Panel loaded</div>',
+            '<div class="line ok">• Session found</div>',
+            '<div class="line ok">• Logged in as ' + name + '</div>',
+            '<div class="line ok">• Pearl controls unlocked</div>'
+          ]);
         } else {
           statusEl.innerHTML = '<span class="status-dot"></span><span>Not logged in</span>';
           lockedArea.classList.add('hidden');
-          log.innerHTML = `
-            <div class="line ok">• Background loaded from ./background.png</div>
-            <div class="line ok">• Discord button linked to localhost backend</div>
-            <div class="line warn">• Not logged in yet</div>
-          `;
+
+          setLog([
+            '<div class="line ok">• Panel loaded</div>',
+            '<div class="line warn">• No active verified session</div>',
+            '<div class="line dim">• Login required to unlock controls</div>'
+          ]);
         }
       } catch (err) {
-        console.error('Login check failed:', err);
-        const statusEl = document.getElementById('loginStatus');
+        console.error(err);
         statusEl.innerHTML = '<span class="status-dot"></span><span>Backend unavailable</span>';
+        lockedArea.classList.add('hidden');
+
+        setLog([
+          '<div class="line ok">• Panel loaded</div>',
+          '<div class="line err">• Could not reach backend</div>',
+          '<div class="line dim">• Make sure the Node server is running</div>'
+        ]);
       }
     }
+
+    document.querySelectorAll('.pearl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const player = btn.dataset.player;
+        log.innerHTML += '<div class="line ok">• Selected action: ' + player + '</div>';
+      });
+    });
 
     window.addEventListener('load', checkLogin);
   </script>
