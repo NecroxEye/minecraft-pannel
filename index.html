@@ -7,20 +7,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --panel:rgba(10,18,14,0.30);
-      --panel-2:rgba(15,27,21,0.40);
-      --line:rgba(140,255,188,0.18);
-      --text:#f3fff7;
-      --muted:#c4d8cc;
-      --green:#66f2a3;
-      --cyan:#8ce9ff;
-      --gold:#ffe28a;
-      --danger:#ff7b7b;
-      --shadow:0 24px 70px rgba(0,0,0,.35);
-      --radius:24px;
+      --panel: rgba(8,16,13,.28);
+      --panel-2: rgba(11,22,18,.38);
+      --line: rgba(140,255,188,.18);
+      --text: #f3fff7;
+      --muted: #c8d7ce;
+      --green: #66f2a3;
+      --gold: #ffe28a;
+      --danger: #ff7b7b;
+      --shadow: 0 24px 70px rgba(0,0,0,.35);
+      --radius: 24px;
     }
 
     *{box-sizing:border-box}
@@ -30,8 +28,8 @@
       font-family:"Inter", sans-serif;
       color:var(--text);
       background:
-        linear-gradient(rgba(2,7,5,0.12), rgba(2,7,5,0.22)),
-        url("/background.png");
+        linear-gradient(rgba(2,7,5,.12), rgba(2,7,5,.24)),
+        url("background.png");
       background-size:cover;
       background-position:center;
       background-repeat:no-repeat;
@@ -55,7 +53,7 @@
     .page{
       min-height:100vh;
       display:grid;
-      grid-template-columns:minmax(0, 1.2fr) 390px;
+      grid-template-columns:minmax(0,1.2fr) 380px;
       gap:22px;
       padding:24px;
     }
@@ -64,7 +62,7 @@
     .side-panel{
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      background:linear-gradient(180deg,var(--panel),var(--panel-2));
       box-shadow:var(--shadow);
       backdrop-filter:blur(3px);
       -webkit-backdrop-filter:blur(3px);
@@ -81,10 +79,10 @@
     }
 
     .side-panel{
+      min-height:calc(100vh - 48px);
       padding:22px;
       display:flex;
       flex-direction:column;
-      min-height:calc(100vh - 48px);
     }
 
     .hero::after,
@@ -101,7 +99,7 @@
     }
 
     .center-wrap{
-      width:min(760px, 100%);
+      width:min(760px,100%);
       text-align:center;
       display:flex;
       flex-direction:column;
@@ -111,11 +109,32 @@
     }
 
     .logo{
-      width:min(260px, 52vw);
+      width:min(260px,52vw);
       height:auto;
       display:block;
       margin:0 auto 18px;
-      filter:drop-shadow(0 20px 30px rgba(0,0,0,.28));
+      filter:drop-shadow(0 18px 30px rgba(0,0,0,.28));
+    }
+
+    .topline{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:16px;
+      color:var(--green);
+      font-size:.84rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:800;
+    }
+
+    .topline::before{
+      content:"";
+      width:12px;
+      height:12px;
+      border-radius:4px;
+      background:linear-gradient(135deg,var(--green),var(--gold));
+      box-shadow:0 0 18px rgba(102,242,163,.35);
     }
 
     h1,h2,h3{
@@ -126,60 +145,24 @@
     }
 
     h1{
-      font-size:clamp(2.5rem, 5vw, 5rem);
-      text-shadow:0 8px 30px rgba(0,0,0,.28);
+      font-size:clamp(2.5rem,5vw,5rem);
       margin-bottom:16px;
+      text-shadow:0 8px 30px rgba(0,0,0,.28);
     }
 
     .lead{
       max-width:54ch;
       color:var(--muted);
-      font-size:1.04rem;
-      line-height:1.75;
+      font-size:1.02rem;
+      line-height:1.72;
       margin:0 auto;
     }
 
-    .hero-buttons{
-      width:min(520px, 100%);
+    .hero-actions{
+      width:min(520px,100%);
       display:grid;
       gap:14px;
       margin-top:28px;
-    }
-
-    .status{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:16px 0 18px;
-      padding:14px;
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.06);
-      color:var(--muted);
-      font-size:.94rem;
-      animation:fadeUp .6s ease both;
-    }
-
-    .status-dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:var(--gold);
-      box-shadow:0 0 16px rgba(255,226,138,.45);
-      flex:none;
-    }
-
-    .panel-head p{
-      margin:10px 0 0;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:.96rem;
-    }
-
-    .button-stack{
-      display:grid;
-      gap:12px;
-      margin-top:10px;
     }
 
     button,
@@ -206,9 +189,20 @@
       transform:translateY(1px) scale(.99);
     }
 
+    .discord-btn{
+      color:#eef4ff;
+      background:linear-gradient(135deg,#5865f2,#7b8aff);
+      box-shadow:0 16px 34px rgba(88,101,242,.28);
+    }
+
+    .discord-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 20px 42px rgba(88,101,242,.34);
+    }
+
     .main-btn{
       color:#041009;
-      background:linear-gradient(135deg, var(--green), #c8ffda);
+      background:linear-gradient(135deg,var(--green),#c8ffda);
       box-shadow:0 16px 34px rgba(102,242,163,.22);
     }
 
@@ -228,15 +222,39 @@
       background:rgba(255,255,255,.08);
     }
 
-    .discord-btn{
-      color:#eef4ff;
-      background:linear-gradient(135deg, #5865f2, #7b8aff);
-      box-shadow:0 16px 34px rgba(88,101,242,.26);
+    .status{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:16px 0 18px;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:.94rem;
     }
 
-    .discord-btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 20px 42px rgba(88,101,242,.32);
+    .status-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 16px rgba(255,226,138,.45);
+      flex:none;
+    }
+
+    .panel-head p{
+      margin:10px 0 0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.96rem;
+    }
+
+    .button-stack{
+      display:grid;
+      gap:12px;
+      margin-top:10px;
     }
 
     .info-box,
@@ -250,7 +268,7 @@
 
     .info-box h3,
     .log-box h3{
-      font-size:1.1rem;
+      font-size:1.08rem;
       margin-bottom:10px;
     }
 
@@ -265,7 +283,6 @@
       flex:1;
       display:flex;
       flex-direction:column;
-      animation:fadeUp .8s ease both;
     }
 
     #log{
@@ -290,30 +307,9 @@
     .line.ok{color:var(--green)}
     .hidden{display:none!important}
 
-    .topline{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:16px;
-      color:var(--green);
-      font-size:.85rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      font-weight:800;
-    }
-
-    .topline::before{
-      content:"";
-      width:12px;
-      height:12px;
-      border-radius:4px;
-      background:linear-gradient(135deg, var(--green), var(--gold));
-      box-shadow:0 0 18px rgba(102,242,163,.35);
-    }
-
     @keyframes fadeUp{
-      from{opacity:0; transform:translateY(18px)}
-      to{opacity:1; transform:translateY(0)}
+      from{opacity:0;transform:translateY(18px)}
+      to{opacity:1;transform:translateY(0)}
     }
 
     @media (max-width:1080px){
@@ -325,7 +321,7 @@
     @media (max-width:700px){
       .page{padding:14px}
       .hero,.side-panel{padding:18px}
-      .logo{width:min(210px, 62vw)}
+      .logo{width:min(210px,62vw)}
     }
   </style>
 </head>
@@ -334,5 +330,168 @@
     <section class="hero">
       <div class="center-wrap">
         <div class="topline">Minecraft server control</div>
-        <img src="/Logo.png" alt="Pearl Pull System Logo" class="logo">
-        <h1>Pearl Pull
+        <img src="Logo.png" alt="Pearl Pull System Logo" class="logo">
+        <h1>Pearl Pull System</h1>
+        <p class="lead">
+          Login with Discord to verify access. After a successful authentication,
+          the pearl action buttons will appear below.
+        </p>
+
+        <div id="loginArea" class="hero-actions">
+          <a id="discordLoginBtn" class="panel-link discord-btn" href="http://localhost:3000/auth/discord">
+            Login with Discord
+          </a>
+        </div>
+
+        <div id="heroButtons" class="hero-actions hidden">
+          <button class="main-btn pearl-btn" type="button" data-player="Necrox">Necrox Pearl</button>
+          <button class="main-btn pearl-btn" type="button" data-player="Alice">Alice Pearl</button>
+          <button class="ghost-btn pearl-btn" type="button" data-player="Self">Self Pull</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side-panel">
+      <div class="panel-head">
+        <h2>Access</h2>
+        <p>Discord verification is required before control actions are unlocked.</p>
+      </div>
+
+      <div id="loginStatus" class="status">
+        <span class="status-dot"></span>
+        <span>Checking login...</span>
+      </div>
+
+      <div class="button-stack">
+        <button class="ghost-btn" type="button" onclick="location.reload()">
+          Refresh Panel
+        </button>
+      </div>
+
+      <div class="info-box">
+        <h3>System State</h3>
+        <p>
+          This page can be hosted publicly, but GitHub Pages cannot run your Node backend.
+          Your Discord login and pearl actions still depend on your backend being online at your own server URL.
+        </p>
+      </div>
+
+      <div class="log-box">
+        <h3>Status Log</h3>
+        <div id="log">
+          <div class="line ok">• Panel loaded</div>
+          <div class="line dim">• Waiting for backend session check...</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const BACKEND_URL = 'http://localhost:3000';
+
+    const log = document.getElementById('log');
+    const statusEl = document.getElementById('loginStatus');
+    const heroButtons = document.getElementById('heroButtons');
+    const loginArea = document.getElementById('loginArea');
+    const loginBtn = document.getElementById('discordLoginBtn');
+
+    function setLog(lines) {
+      log.innerHTML = lines.join('');
+    }
+
+    function appendLog(text, type = 'ok') {
+      log.innerHTML += `<div class="line ${type}">• ${text}</div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function checkLogin() {
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/me`, {
+          credentials: 'include'
+        });
+
+        if (!res.ok) {
+          throw new Error('Backend returned ' + res.status);
+        }
+
+        const data = await res.json();
+
+        if (data.loggedIn) {
+          const name = data.user.global_name || data.user.username;
+          statusEl.innerHTML = '<span class="status-dot"></span><span>Logged in as ' + name + '</span>';
+          loginArea.classList.add('hidden');
+          heroButtons.classList.remove('hidden');
+
+          setLog([
+            '<div class="line ok">• Panel loaded</div>',
+            '<div class="line ok">• Session found</div>',
+            '<div class="line ok">• Logged in as ' + name + '</div>',
+            '<div class="line ok">• Pearl controls unlocked</div>'
+          ]);
+        } else {
+          statusEl.innerHTML = '<span class="status-dot"></span><span>Not logged in</span>';
+          loginArea.classList.remove('hidden');
+          heroButtons.classList.add('hidden');
+
+          setLog([
+            '<div class="line ok">• Panel loaded</div>',
+            '<div class="line warn">• No active verified session</div>',
+            '<div class="line dim">• Login required to unlock controls</div>'
+          ]);
+        }
+      } catch (err) {
+        console.error(err);
+        statusEl.innerHTML = '<span class="status-dot"></span><span>Backend unavailable</span>';
+        loginArea.classList.remove('hidden');
+        heroButtons.classList.add('hidden');
+
+        setLog([
+          '<div class="line ok">• Panel loaded</div>',
+          '<div class="line err">• Could not reach backend</div>',
+          '<div class="line dim">• Public GitHub page cannot use localhost backend</div>'
+        ]);
+      }
+    }
+
+    async function sendPearlAction(player) {
+      appendLog('Sending action for ' + player + '...', 'warn');
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/pull-pearl`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({ player })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          appendLog(data.message || ('Action accepted for ' + player), 'ok');
+        } else {
+          appendLog(data.message || ('Action failed for ' + player), 'err');
+        }
+      } catch (err) {
+        console.error(err);
+        appendLog('Failed to contact backend for ' + player, 'err');
+      }
+    }
+
+    document.querySelectorAll('.pearl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sendPearlAction(btn.dataset.player);
+      });
+    });
+
+    loginBtn.addEventListener('click', function(e) {
+      if (BACKEND_URL.includes('localhost') && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        appendLog('This public page cannot authenticate against localhost backend', 'err');
+      }
+    });
+
+    window.addEventListener('load', checkLogin);
+  </script>
+</body>
+</html>
