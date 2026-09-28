@@ -26,11 +26,7 @@
     }
 
     *{box-sizing:border-box}
-
-    html,body{
-      margin:0;
-      min-height:100%;
-    }
+    html,body{margin:0;min-height:100%}
 
     body{
       font-family:"Inter", sans-serif;
@@ -61,7 +57,7 @@
     .page{
       min-height:100vh;
       display:grid;
-      grid-template-columns: minmax(0, 1.25fr) 380px;
+      grid-template-columns:minmax(0, 1.25fr) 380px;
       gap:22px;
       padding:24px;
     }
@@ -151,9 +147,7 @@
       line-height:1.65;
     }
 
-    .notice strong{
-      color:#fff0b3;
-    }
+    .notice strong{color:#fff0b3}
 
     .mock-flow{
       margin-top:28px;
@@ -208,6 +202,7 @@
     .info-tile div{
       color:var(--muted);
       line-height:1.65;
+      word-break:break-word;
     }
 
     .side-panel{
@@ -217,9 +212,7 @@
       min-height:calc(100vh - 48px);
     }
 
-    .panel-head{
-      margin-bottom:18px;
-    }
+    .panel-head{margin-bottom:18px}
 
     .panel-head p{
       margin:10px 0 0;
@@ -358,19 +351,6 @@
       box-shadow:0 0 16px rgba(102,242,163,.28);
     }
 
-    .code{
-      margin-top:12px;
-      border-radius:14px;
-      background:#09110d;
-      border:1px solid rgba(140,255,188,.12);
-      padding:12px;
-      color:#cbffe0;
-      font-size:.84rem;
-      line-height:1.55;
-      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      word-break:break-word;
-    }
-
     .log-box{
       flex:1;
       display:flex;
@@ -398,28 +378,18 @@
     .line.err{color:var(--danger)}
     .line.ok{color:var(--green)}
 
-    .hidden{
-      display:none !important;
+    .hidden{display:none !important}
+
+    @media (max-width:1080px){
+      .page{grid-template-columns:1fr}
+      .hero,.side-panel{min-height:auto}
     }
 
-    @media (max-width: 1080px){
-      .page{
-        grid-template-columns:1fr;
-      }
-
-      .hero,
-      .side-panel{
-        min-height:auto;
-      }
-    }
-
-    @media (max-width: 700px){
+    @media (max-width:700px){
       .page{padding:14px}
       .hero,.side-panel{padding:18px}
       .mock-flow,
-      .bottom-strip{
-        grid-template-columns:1fr;
-      }
+      .bottom-strip{grid-template-columns:1fr}
       h1{max-width:11ch}
     }
   </style>
@@ -534,7 +504,7 @@
   <script>
     async function checkLogin() {
       try {
-        const res = await fetch('http://localhost:3000/api/me', {
+        const res = await fetch('/api/me', {
           credentials: 'include'
         });
 
@@ -545,7 +515,8 @@
         const log = document.getElementById('log');
 
         if (data.loggedIn) {
-          statusEl.innerHTML = '<span class="status-dot"></span><span>Logged in as ' + (data.user.global_name || data.user.username) + '</span>';
+          const name = data.user.global_name || data.user.username;
+          statusEl.innerHTML = '<span class="status-dot"></span><span>Logged in as ' + name + '</span>';
           loginBtn.textContent = 'Logged In';
           loginBtn.style.pointerEvents = 'none';
           loginBtn.style.opacity = '0.75';
@@ -553,7 +524,7 @@
           log.innerHTML = `
             <div class="line ok">• Background loaded from ./background.png</div>
             <div class="line ok">• Discord button linked to localhost backend</div>
-            <div class="line ok">• Logged in as ${data.user.username}</div>
+            <div class="line ok">• Logged in as ${name}</div>
             <div class="line ok">• Verified and unlocked</div>
           `;
         } else {
